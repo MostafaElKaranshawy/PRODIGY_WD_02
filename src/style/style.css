@@ -1,8 +1,30 @@
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+
 body{
     background-color: #4b4bff;
     padding: 0;
     margin: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -10,7 +32,7 @@ body{
 }
 .container {
     width: 500px;
-    height: 300px;
+    /* height: 400px; */
     background-color: #eee;
     border-radius: 5px;
     display: flex;
@@ -20,8 +42,9 @@ body{
     position: relative;
 }
 .timer {
+    margin: 20px 0;
     width: 80%;
-    height: 40%;
+    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,7 +58,6 @@ body{
 }
 .buttons{
     width: 80%;
-    height: 30%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -45,7 +67,7 @@ body{
     padding: 10px;
     box-shadow: 0px 0px 6px 1px #4b4bff33;
     color: white;
-    width: 80px;
+    width: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70,4 +92,30 @@ body{
 }
 .reset:hover{
     background-color: #029802;
+}
+.labB{
+    background-color: #c7c700;
+}
+.labB:hover{
+    background-color: #9b9b01;
+}
+.labs{
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 100px;
+    width: calc(100% - 20px);
+}
+.lab{
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    height: 30px;
+    background-color: white;
+    margin-bottom: 5px;
+    cursor: pointer;
 }

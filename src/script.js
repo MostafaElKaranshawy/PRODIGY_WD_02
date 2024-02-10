@@ -1,23 +1,32 @@
 let start = document.querySelector(".start");
 let pause = document.querySelector(".pause");
 let reset = document.querySelector(".reset");
+let labButton = document.querySelector(".labB");
 
-let displayTime = function(){
-    var milliseconds = Math.floor(time % 1000);
-    var seconds = Math.floor((time / 1000) % 60);
-    var minutes = Math.floor((time / 1000 / 60) % 60);
-    var hours = Math.floor((time / 1000 / 60 / 60) % 24);
+
+let formatter = function (t){
+    var milliseconds = Math.floor(t % 1000);
+    var seconds = Math.floor((t / 1000) % 60);
+    var minutes = Math.floor((t / 1000 / 60) % 60);
+    var hours = Math.floor((t / 1000 / 60 / 60) % 24);
     let ms = (milliseconds < 10 ? '00' : (milliseconds < 100 ? '0' : '')) + milliseconds;
     var formattedTime =
         (hours < 10 ? '0' : '') + hours + ':' +
         (minutes < 10 ? '0' : '') + minutes + ':' +
         (seconds < 10 ? '0' : '') + seconds ;
+    return [formattedTime, ms];
+}
+
+let displayTime = function(){
+    let formatted = formatter(time);
+    let formattedTime = formatted[0];
+    let ms = formatted[1]
     document.querySelector(".time").textContent = formattedTime;
     document.querySelector('.ms').textContent = ms;
 }
-
 let PauseTime = false;
 
+var labs = [];
 var startTime;
 var time = 0;
 var pausedTime = 0;
@@ -68,6 +77,7 @@ let pauseTime = function() {
     }
 }
 
+let labArea = document.querySelector('.labs');
 let resetTime = function() {
     setColors('reset')
     clearInterval(updateInterval);
@@ -75,9 +85,28 @@ let resetTime = function() {
     pausedTime = 0;
     PauseTime = false;
     starting = false;
+    labs = [];
+    while (labArea.firstChild) {
+        labArea.removeChild(labArea.firstChild);
+    }
     displayTime();
 }
+let addLab = function(){
+    const lab = {
+        name: '#Lab ' + (labs.length+1),
+        time: time
+    };
+    labs.push(lab);
+    let labChild = document.createElement('div');
+    labChild.className = 'lab'
+    labChild.innerHTML = `<div class="labN"></div>
+    <div class="labTime"></div>`
+    labArea.insertBefore(labChild, labArea.firstChild);
+    document.querySelector('.labs .lab:first-child .labN').textContent = lab.name
+    document.querySelector('.labs .lab:first-child .labTime').textContent = formatter(time)[0] + ':' + formatter(time)[1]
 
+}
 start.addEventListener("click", startStopWatch)
 pause.addEventListener("click", pauseTime)
 reset.addEventListener("click", resetTime)
+labButton.addEventListener("click", addLab)
